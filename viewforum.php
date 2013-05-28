@@ -31,12 +31,10 @@ echo "<a href='index.php'>" . $config_forumsname . "</a><br /><br />";
 echo "[<a href='newtopic.php?id=" . $validforum . "'>New Topic</a>]";
 echo "<br /><br />";
 
-$topicsql = "SELECT MAX( messages.date ) AS maxdate, 
-	topics.id AS topicid, topics.*, users.*
-	FROM messages, topics, users WHERE messages.topic_id
-	= topics.id AND topics.user_id = users.id AND 
-	topics.forum_id = " . $validforum . " GROUP BY
-	messages.topic_id ORDER BY maxdate DESC;";
+$topicsql = "SELECT topics.id AS topicid, topics.*, users.*
+	FROM topics, users WHERE topics.user_id = users.id AND 
+	topics.forum_id = 1 GROUP BY
+	topicid ORDER BY topics.date DESC;";
 
 $topicresult = mysql_query($topicsql);
 $topicnumrows = mysql_num_rows($topicresult);
